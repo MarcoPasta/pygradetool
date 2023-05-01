@@ -2,11 +2,14 @@
 import sys
 import os
 import html_template as tmplt
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 
-class Ui_PyGradeTool(object):
+import modules.auto_pdf as auto_pdf
+
+class Ui_PyGradeTool(QtWidgets.QWidget):
 
     def setupUi(self, PyGradeTool):
+                
         PyGradeTool.setObjectName("PyGradeTool")
         PyGradeTool.setEnabled(True)
         PyGradeTool.resize(800, 710)
@@ -28,7 +31,7 @@ class Ui_PyGradeTool(object):
         self.bewertender_in = QtWidgets.QLineEdit(PyGradeTool)
         self.bewertender_in.setGeometry(QtCore.QRect(10, 100, 401, 25))
         self.bewertender_in.setObjectName("bewertender_in")
-        # Kriterien Labels ----------------------------------
+        # Kriterien Input ----------------------------------
         self.kriterium = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium.setGeometry(QtCore.QRect(10, 150, 541, 25))
         self.kriterium.setObjectName("kriterium")
@@ -53,10 +56,10 @@ class Ui_PyGradeTool(object):
         self.kriterium_8 = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium_8.setGeometry(QtCore.QRect(10, 360, 541, 25))
         self.kriterium_8.setObjectName("kriterium_8")
-        # Liste mit Krit labels
+        # Liste mit Kriterien
         self.krit = [self.kriterium, self.kriterium_2, self.kriterium_3, self.kriterium_4,
                      self.kriterium_5, self.kriterium_6, self.kriterium_7, self.kriterium_8]
-        # Krit In ---------------------------------------
+        # Krit Score In ----------------------------------
         self.kriterium_in = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium_in.setGeometry(QtCore.QRect(630, 150, 61, 25))
         self.kriterium_in.setObjectName("kriterium_in")
@@ -85,7 +88,7 @@ class Ui_PyGradeTool(object):
         self.krit_in = [self.kriterium_in, self.kriterium_in_2, self.kriterium_in_3,
                         self.kriterium_in_4, self.kriterium_in_5, self.kriterium_in_6,
                         self.kriterium_in_7, self.kriterium_in_8]
-        # Krit Von --------------------------------------------
+        # Krit Score Von --------------------------------------------
         self.kriterium_von = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium_von.setGeometry(QtCore.QRect(720, 150, 61, 25))
         self.kriterium_von.setObjectName("kriterium_von")
@@ -180,6 +183,12 @@ class Ui_PyGradeTool(object):
         self.compiler_fehler_label = QtWidgets.QLabel(PyGradeTool)
         self.compiler_fehler_label.setGeometry(QtCore.QRect(650, 415, 150, 25))
         self.compiler_fehler_label.setObjectName("compiler_fehler_label")
+        self.file_dialog_label = QtWidgets.QLabel(PyGradeTool)
+        self.file_dialog_label.setGeometry(QtCore.QRect(630, 70, 110, 30))
+        self.file_dialog_label.setObjectName("file_dialog_label")
+        self.file_dialog = QtWidgets.QPushButton(PyGradeTool)
+        self.file_dialog.setGeometry(QtCore.QRect(630, 100, 61, 30))
+        self.file_dialog.setObjectName("file_dialog_button")
         # raise ----------------------------------------------
         self.zu_bewerten_in.raise_()
         self.zu_bewerten.raise_()
@@ -230,10 +239,6 @@ class Ui_PyGradeTool(object):
         self.retranslateUi(PyGradeTool)
         QtCore.QMetaObject.connectSlotsByName(PyGradeTool)
 
-        # For debugging purposes 
-        # self.bewertung_generieren.clicked.connect(self.click_on_check)
-        self.bewertung_generieren.clicked.connect(self.berechne_summe)
-        self.bewertung_generieren.clicked.connect(self.create_html)
 
     def retranslateUi(self, PyGradeTool):
         _translate = QtCore.QCoreApplication.translate
@@ -254,6 +259,32 @@ class Ui_PyGradeTool(object):
         self.slash_8.setText(_translate("PyGradeTool", "/"))
         self.bewertung_generieren.setText(_translate("PyGradeTool", "Bewertung generieren"))
         self.compiler_fehler_label.setText(_translate("PyGradeTool", "Compiler Fehler"))
+        self.file_dialog_label.setText(_translate("PyGradeTool", "PDF auswählen"))
+        self.file_dialog.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_DialogOpenButton))
+
+
+        self.bewertung_generieren.clicked.connect(self.berechne_summe)
+        self.bewertung_generieren.clicked.connect(self.create_html)
+        self.file_dialog.clicked.connect(self.detect_from_json)
+
+
+    def open_file_dialog(self): 
+        filename = QtWidgets.QFileDialog.getOpenFileName()
+        path = filename[0]
+        return path
+
+    def detect_from_json(self): 
+        """
+        Oeffnet file dialog um Kriterien aus PDF zu kopieren
+        """
+        path = self.open_file_dialog()
+        formatted_krits = auto_pdf.krit_list(path)
+        i = 0
+        for x in formatted_krits:
+            self.krit[i].setText(x[0])
+            self.krit_von[i].setText(x[1])
+            i += 1
+
 
     def berechne_summe(self):
         """
@@ -265,7 +296,6 @@ class Ui_PyGradeTool(object):
         for x in self.krit_in:
             if not x.text() == "":
                 self.number_in = self.number_in + int(x.text())
-        print(self.number_in)
         if self.compiler_fehler_checkbox.isChecked():
             self.number_in = 0
         self.summe_in.setText(str(self.number_in))
@@ -273,17 +303,19 @@ class Ui_PyGradeTool(object):
         for x in self.krit_von:
             if not x.text() == "":
                 self.number_von = self.number_von + int(x.text())
-        print(self.number_von)
         self.summe_von.setText(str(self.number_von))
 
         
     def create_html(self):
+        """
+        Erzeuge eine HTML Datei welche die Korrektur enthaelt 
+        """
         program_name = self.zu_bewerten_in.text().replace(" ", "_")
 
         if not os.path.exists("html"):
             os.system("mkdir html")
         else:
-            print("directory exists already")
+            pass
 
         f = open("html/" + program_name + ".html", "w", encoding='utf8')
 
@@ -295,7 +327,6 @@ class Ui_PyGradeTool(object):
                 <td style="padding: 12px 15px;">{self.krit_in[x].text()}/{self.krit_von[x].text()}</td>
                 </tr>"""
                 html_krit_list.append(html_krit)
-        print(html_krit_list)
 
         html_file_end = tmplt.html_end(self.compiler_fehler_checkbox.isChecked(), self.summe_in.text(),
                                        self.summe_von.text(), self.kommentar_in.toPlainText(), 
@@ -307,7 +338,6 @@ class Ui_PyGradeTool(object):
         # Jedes Kriterium hinzufuegen
         for x in range(0,8):
             if not (self.krit[x].text() and self.krit_in[x].text() and self.krit_von[x].text()) == "":
-                print(self.krit[x])
                 html_file += html_krit_list[x]
 
         html_file += html_file_end

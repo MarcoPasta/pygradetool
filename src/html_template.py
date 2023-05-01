@@ -1,6 +1,3 @@
-#
-# HTML Template, is imported to create .html file
-#
 def html_begin(bewertender_in, zu_bewerten_in) -> str:
     html_file_begin = f"""<div>
                     <table class="content-table" style="border-collapse: collapse;margin: 25px 0;font-size: 0.9em;border-radius: 5px 5px 0 0;overflow: hidden;box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);">
