@@ -9,6 +9,12 @@ Bei der Erstellung der HTML Datei wird eine Tabelle erzeugt, welche den Namen de
 Um das Programm zu starten muss die im Repo enthaltene pygradetool.py mit Python gestartet werden. Wer möchte kann sich über das Pkg Pyinstaller eine executable erstellen und diese ins WD schieben (alternativ die .exe Datei in das WD schieben.)
 ___
 # Installation 
+Bevor ihr das Tool installiert, stellt sicher das `libxcb` installiert ist
+Debian & Ubuntu
+```bash
+sudo apt-get install libxcb-xinerama0
+```
+
 mit folgenden schritten installiert ihr das Tool: 
 * `python3-venv` über den PackageManager deiner Distro installieren.
 * Auf Windows ist venv bei der Installation schon dabei.
@@ -53,5 +59,5 @@ ___
 * Compilerfehler Button hinzufügen, welcher eine Meldung dazu ausgibt.
 ___
 # Bilder
-![image info](./src/Tool.png)
-![image info](./src/Ergebnis.png)
+![image info](./assets/Tool.png)
+![image info](./assets/Ergebnis.png)

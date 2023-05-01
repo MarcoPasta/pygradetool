@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import os
-
-from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+import os
+import html_template as tmplt
+from PyQt5 import QtWidgets, QtCore
 
 class Ui_PyGradeTool(object):
 
@@ -16,18 +16,19 @@ class Ui_PyGradeTool(object):
         # PyGradeTool.setWindowOpacity(0.0)        
         PyGradeTool.setAcceptDrops(False)
         PyGradeTool.setToolTipDuration(-1)
-        self.zu_bewerten_in = QtWidgets.QLineEdit(PyGradeTool)
-        self.zu_bewerten_in.setGeometry(QtCore.QRect(10, 50, 401, 25))
-        self.zu_bewerten_in.setObjectName("zu_bewerten_in")
         self.zu_bewerten = QtWidgets.QLabel(PyGradeTool)
         self.zu_bewerten.setGeometry(QtCore.QRect(10, 30, 261, 17))
         self.zu_bewerten.setObjectName("zu_bewerten")
-        self.bewertender_in = QtWidgets.QLineEdit(PyGradeTool)
-        self.bewertender_in.setGeometry(QtCore.QRect(10, 100, 401, 25))
-        self.bewertender_in.setObjectName("bewertender_in")
+        self.zu_bewerten_in = QtWidgets.QLineEdit(PyGradeTool)
+        self.zu_bewerten_in.setGeometry(QtCore.QRect(10, 50, 401, 25))
+        self.zu_bewerten_in.setObjectName("zu_bewerten_in")
         self.bewertender = QtWidgets.QLabel(PyGradeTool)
         self.bewertender.setGeometry(QtCore.QRect(10, 80, 261, 17))
         self.bewertender.setObjectName("bewertender")
+        self.bewertender_in = QtWidgets.QLineEdit(PyGradeTool)
+        self.bewertender_in.setGeometry(QtCore.QRect(10, 100, 401, 25))
+        self.bewertender_in.setObjectName("bewertender_in")
+        # Kriterien Labels ----------------------------------
         self.kriterium = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium.setGeometry(QtCore.QRect(10, 150, 541, 25))
         self.kriterium.setObjectName("kriterium")
@@ -52,9 +53,10 @@ class Ui_PyGradeTool(object):
         self.kriterium_8 = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium_8.setGeometry(QtCore.QRect(10, 360, 541, 25))
         self.kriterium_8.setObjectName("kriterium_8")
-        self.kriterium_von = QtWidgets.QLineEdit(PyGradeTool)
-        self.kriterium_von.setGeometry(QtCore.QRect(720, 150, 61, 25))
-        self.kriterium_von.setObjectName("kriterium_von")
+        # Liste mit Krit labels
+        self.krit = [self.kriterium, self.kriterium_2, self.kriterium_3, self.kriterium_4,
+                     self.kriterium_5, self.kriterium_6, self.kriterium_7, self.kriterium_8]
+        # Krit In ---------------------------------------
         self.kriterium_in = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium_in.setGeometry(QtCore.QRect(630, 150, 61, 25))
         self.kriterium_in.setObjectName("kriterium_in")
@@ -79,6 +81,17 @@ class Ui_PyGradeTool(object):
         self.kriterium_in_8 = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium_in_8.setGeometry(QtCore.QRect(630, 360, 61, 25))
         self.kriterium_in_8.setObjectName("kriterium_in_8")
+        # Liste mit Kriterien Inputs
+        self.krit_in = [self.kriterium_in, self.kriterium_in_2, self.kriterium_in_3,
+                        self.kriterium_in_4, self.kriterium_in_5, self.kriterium_in_6,
+                        self.kriterium_in_7, self.kriterium_in_8]
+        # Krit Von --------------------------------------------
+        self.kriterium_von = QtWidgets.QLineEdit(PyGradeTool)
+        self.kriterium_von.setGeometry(QtCore.QRect(720, 150, 61, 25))
+        self.kriterium_von.setObjectName("kriterium_von")
+        self.kriterium_von_2 = QtWidgets.QLineEdit(PyGradeTool)
+        self.kriterium_von_2.setGeometry(QtCore.QRect(720, 180, 61, 25))
+        self.kriterium_von_2.setObjectName("kriterium_von_2")
         self.kriterium_von_3 = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium_von_3.setGeometry(QtCore.QRect(720, 210, 61, 25))
         self.kriterium_von_3.setObjectName("kriterium_von_3")
@@ -97,12 +110,14 @@ class Ui_PyGradeTool(object):
         self.kriterium_von_8 = QtWidgets.QLineEdit(PyGradeTool)
         self.kriterium_von_8.setGeometry(QtCore.QRect(720, 360, 61, 25))
         self.kriterium_von_8.setObjectName("kriterium_von_8")
+        # Liste mit Krit Von
+        self.krit_von = [self.kriterium_von, self.kriterium_von_2, self.kriterium_von_3,
+                         self.kriterium_von_4, self.kriterium_von_5, self.kriterium_von_6,
+                         self.kriterium_von_7, self.kriterium_von_8]
+        # Slash -------------------------------------------
         self.slash_1 = QtWidgets.QLabel(PyGradeTool)
         self.slash_1.setGeometry(QtCore.QRect(700, 150, 16, 17))
         self.slash_1.setObjectName("slash_1")
-        self.kriterium_von_2 = QtWidgets.QLineEdit(PyGradeTool)
-        self.kriterium_von_2.setGeometry(QtCore.QRect(720, 180, 61, 25))
-        self.kriterium_von_2.setObjectName("kriterium_von_2")
         self.slash_2 = QtWidgets.QLabel(PyGradeTool)
         self.slash_2.setGeometry(QtCore.QRect(700, 180, 16, 17))
         self.slash_2.setObjectName("slash_2")
@@ -124,16 +139,28 @@ class Ui_PyGradeTool(object):
         self.slash_8 = QtWidgets.QLabel(PyGradeTool)
         self.slash_8.setGeometry(QtCore.QRect(700, 360, 16, 17))
         self.slash_8.setObjectName("slash_8")
+        # Kommentare - Hinweise - Musterloesung ------------
         self.kommentar = QtWidgets.QLabel(PyGradeTool)
         self.kommentar.setGeometry(QtCore.QRect(10, 400, 91, 17))
         self.kommentar.setObjectName("kommentar")
+        self.kommentar_in = QtWidgets.QTextEdit(PyGradeTool)
+        self.kommentar_in.setGeometry(QtCore.QRect(10, 420, 541, 91))
+        self.kommentar_in.setTabletTracking(True)
+        self.kommentar_in.setObjectName("kommentar_in")
         self.hinweise = QtWidgets.QLabel(PyGradeTool)
         self.hinweise.setGeometry(QtCore.QRect(10, 520, 91, 17))
         self.hinweise.setFocusPolicy(QtCore.Qt.NoFocus)
         self.hinweise.setObjectName("hinweise")
+        self.hinweise_in = QtWidgets.QTextEdit(PyGradeTool)
+        self.hinweise_in.setGeometry(QtCore.QRect(10, 540, 541, 91))
+        self.hinweise_in.setObjectName("hinweise_in")
         self.musterloesung = QtWidgets.QLabel(PyGradeTool)
         self.musterloesung.setGeometry(QtCore.QRect(10, 640, 101, 17))
         self.musterloesung.setObjectName("musterloesung")
+        self.musterloesung_in = QtWidgets.QLineEdit(PyGradeTool)
+        self.musterloesung_in.setGeometry(QtCore.QRect(10, 660, 541, 25))
+        self.musterloesung_in.setObjectName("musterloesung_in")
+        # Summe -------------------------------------------
         self.summe_in = QtWidgets.QLineEdit(PyGradeTool)
         self.summe_in.setGeometry(QtCore.QRect(630, 390, 61, 25))
         self.summe_in.setObjectName("summe_in")
@@ -143,16 +170,7 @@ class Ui_PyGradeTool(object):
         self.slash_9 = QtWidgets.QLabel(PyGradeTool)
         self.slash_9.setGeometry(QtCore.QRect(700, 390, 16, 17))
         self.slash_9.setObjectName("slash_9")
-        self.kommentar_in = QtWidgets.QTextEdit(PyGradeTool)
-        self.kommentar_in.setGeometry(QtCore.QRect(10, 420, 541, 91))
-        self.kommentar_in.setTabletTracking(True)
-        self.kommentar_in.setObjectName("kommentar_in")
-        self.hinweise_in = QtWidgets.QTextEdit(PyGradeTool)
-        self.hinweise_in.setGeometry(QtCore.QRect(10, 540, 541, 91))
-        self.hinweise_in.setObjectName("hinweise_in")
-        self.musterloesung_in = QtWidgets.QLineEdit(PyGradeTool)
-        self.musterloesung_in.setGeometry(QtCore.QRect(10, 660, 541, 25))
-        self.musterloesung_in.setObjectName("musterloesung_in")
+        # Buttons - Checkboxes ----------------------------
         self.bewertung_generieren = QtWidgets.QPushButton(PyGradeTool)
         self.bewertung_generieren.setGeometry(QtCore.QRect(630, 450, 160, 25))
         self.bewertung_generieren.setObjectName("bewertung_generieren")
@@ -162,6 +180,7 @@ class Ui_PyGradeTool(object):
         self.compiler_fehler_label = QtWidgets.QLabel(PyGradeTool)
         self.compiler_fehler_label.setGeometry(QtCore.QRect(650, 415, 150, 25))
         self.compiler_fehler_label.setObjectName("compiler_fehler_label")
+        # raise ----------------------------------------------
         self.zu_bewerten_in.raise_()
         self.zu_bewerten.raise_()
         self.bewertender_in.raise_()
@@ -237,82 +256,28 @@ class Ui_PyGradeTool(object):
         self.compiler_fehler_label.setText(_translate("PyGradeTool", "Compiler Fehler"))
 
     def berechne_summe(self):
+        """
+        Berechne die Summe der übergebenen Punkte
+        """
         self.number_in = 0
         self.number_von = 0
-        if not self.kriterium_in.text() == "":
-            self.number_in += int(self.kriterium_in.text())
-        if not self.kriterium_in_2.text() == "":
-            self.number_in += int(self.kriterium_in_2.text())
-        if not self.kriterium_in_3.text() == "":
-            self.number_in += int(self.kriterium_in_3.text())
-        if not self.kriterium_in_4.text() == "":
-            self.number_in += int(self.kriterium_in_4.text())
-        if not self.kriterium_in_5.text() == "":
-            self.number_in += int(self.kriterium_in_5.text())
-        if not self.kriterium_in_6.text() == "":
-            self.number_in += int(self.kriterium_in_6.text())
-        if not self.kriterium_in_7.text() == "":
-            self.number_in += int(self.kriterium_in_7.text())
-        if not self.kriterium_in_8.text() == "":
-            self.number_in += int(self.kriterium_in_8.text())
-        # print(self.number_in)
+
+        for x in self.krit_in:
+            if not x.text() == "":
+                self.number_in = self.number_in + int(x.text())
+        print(self.number_in)
         if self.compiler_fehler_checkbox.isChecked():
             self.number_in = 0
         self.summe_in.setText(str(self.number_in))
 
-        if not self.kriterium_von.text() == "":
-            self.number_von += int(self.kriterium_von.text())
-        if not self.kriterium_von_2.text() == "":
-            self.number_von += int(self.kriterium_von_2.text())
-        if not self.kriterium_von_3.text() == "":
-            self.number_von += int(self.kriterium_von_3.text())
-        if not self.kriterium_von_4.text() == "":
-            self.number_von += int(self.kriterium_von_4.text())
-        if not self.kriterium_von_5.text() == "":
-            self.number_von += int(self.kriterium_von_5.text())
-        if not self.kriterium_von_6.text() == "":
-            self.number_von += int(self.kriterium_von_6.text())
-        if not self.kriterium_von_7.text() == "":
-            self.number_von += int(self.kriterium_von_7.text())
-        if not self.kriterium_von_8.text() == "":
-            self.number_von += int(self.kriterium_von_8.text())
-        # print(self.number_von)
+        for x in self.krit_von:
+            if not x.text() == "":
+                self.number_von = self.number_von + int(x.text())
+        print(self.number_von)
         self.summe_von.setText(str(self.number_von))
 
-    # For debuggin only
-    # def click_on_check(self):
-        # print(self.zu_bewerten.text())
-        # print(self.bewertender.text())
-        # print(self.kriterium.text())
-        # print(self.kriterium_2.text())
-        # print(self.kriterium_3.text())
-        # print(self.kriterium_4.text())
-        # print(self.kriterium_5.text())
-        # print(self.kriterium_6.text())
-        # print(self.kriterium_7.text())
-        # print(self.kriterium_in.text())
-        # print(self.kriterium_in_2.text())
-        # print(self.kriterium_in_3.text())
-        # print(self.kriterium_in_4.text())
-        # print(self.kriterium_in_5.text())
-        # print(self.kriterium_in_6.text())
-        # print(self.kriterium_in_7.text())
-        # print(self.kriterium_von.text())
-        # print(self.kriterium_von_2.text())
-        # print(self.kriterium_von_3.text())
-        # print(self.kriterium_von_4.text())
-        # print(self.kriterium_von_5.text())
-        # print(self.kriterium_von_6.text())
-        # print(self.kriterium_von_7.text())
-        # print(self.kommentar_in.toPlainText())
-        # print(self.hinweise_in.toPlainText())
-        # print(self.musterloesung_in.text())
-
-    def create_html(self):
-        # Debuggin
-        # print(type(program_name))
         
-        # Replace spaces in current strint with underscore for better html format on linux
+    def create_html(self):
         program_name = self.zu_bewerten_in.text().replace(" ", "_")
 
         if not os.path.exists("html"):
@@ -320,139 +285,30 @@ class Ui_PyGradeTool(object):
         else:
             print("directory exists already")
 
-        # print(program_name)
-        # f = open("./html/" + program_name + ".html", "w", encoding='utf8')
         f = open("html/" + program_name + ".html", "w", encoding='utf8')
 
-        html_file_begin = f"""<div>
-                    <table class="content-table" style="border-collapse: collapse;margin: 25px 0;font-size: 0.9em;border-radius: 5px 5px 0 0;overflow: hidden;box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);">
-                        <thead>
-                            <tr style="background-color: #009879;color: #ffffff;text-align: left;font-weight: bold;">
-                                <th style="padding: 12px 15px;"></th>
-                                <th style="padding: 12px 15px;"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid #dddddd;">
-                                <td style="padding: 12px 15px;"><b>Bewertende Person</b></td>
-                                <td style="padding: 12px 15px;">{self.bewertender_in.text()}</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #dddddd;">
-                                <td style="padding: 12px 15px;"><b>Zu Bewertende Person</b></td>
-                                <td style="padding: 12px 15px;">{self.zu_bewerten_in.text()}</td>
-                            </tr>
-                        </tbody>
-                        <thead>
-                        <tr style="background-color: #009879;color: #ffffff;text-align: left;font-weight: bold;">
-                            <th style="padding: 12px 15px;">Bewertungsschema</th>
-                            <th style="padding: 12px 15px;">Punkte</th>
-                        </tr>
-                        </thead>
-                        <tbody>"""
+        # laesst sich nicht auslagern da QLineEdits anscheinend nicht gepassed werden koennen
+        html_krit_list = []
+        for x in range(0,8):
+                html_krit = f"""<tr style="border-bottom: 1px solid #dddddd;">
+                <td style="padding: 12px 15px;">{self.krit[x].text()}</td>
+                <td style="padding: 12px 15px;">{self.krit_in[x].text()}/{self.krit_von[x].text()}</td>
+                </tr>"""
+                html_krit_list.append(html_krit)
+        print(html_krit_list)
 
-        html_krit1 = f"""<tr style="border-bottom: 1px solid #dddddd;">
-            <td style="padding: 12px 15px;">{self.kriterium.text()}</td>
-            <td style="padding: 12px 15px;">{self.kriterium_in.text()}/{self.kriterium_von.text()}</td>
-        </tr>"""
+        html_file_end = tmplt.html_end(self.compiler_fehler_checkbox.isChecked(), self.summe_in.text(),
+                                       self.summe_von.text(), self.kommentar_in.toPlainText(), 
+                                       self.hinweise_in.toPlainText(), self.musterloesung_in.text())
 
-        html_krit2 = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: #009879;">
-            <td style="padding: 12px 15px;">{self.kriterium_2.text()}</td>
-            <td style="padding: 12px 15px;">{self.kriterium_in_2.text()}/{self.kriterium_von_2.text()}</td>
-        </tr>"""
+        html_file = tmplt.html_begin(self.bewertender_in.text(),
+                                          self.zu_bewerten_in.text())
 
-        html_krit3 = f"""<tr style="border-bottom: 1px solid #dddddd;">
-            <td style="padding: 12px 15px;">{self.kriterium_3.text()}</td>
-            <td style="padding: 12px 15px;">{self.kriterium_in_3.text()}/{self.kriterium_von_3.text()}</td>
-        </tr>"""
-
-        html_krit4 = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: #009879;">
-            <td style="padding: 12px 15px;">{self.kriterium_4.text()}</td>
-            <td style="padding: 12px 15px;">{self.kriterium_in_4.text()}/{self.kriterium_von_4.text()}</td>
-        </tr>"""
-
-        html_krit5 = f"""<tr style="border-bottom: 1px solid #dddddd;">
-            <td style="padding: 12px 15px;">{self.kriterium_5.text()}</td>
-            <td style="padding: 12px 15px;">{self.kriterium_in_5.text()}/{self.kriterium_von_5.text()}</td>
-        </tr>"""
-
-        html_krit6 = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: #009879;">
-            <td style="padding: 12px 15px;">{self.kriterium_6.text()}</td>
-            <td style="padding: 12px 15px;">{self.kriterium_in_6.text()}/{self.kriterium_von_6.text()}</td>
-        </tr>"""
-
-        html_krit7 = f"""<tr style="border-bottom: 1px solid #dddddd;">
-            <td style="padding: 12px 15px;">{self.kriterium_7.text()}</td>
-            <td style="padding: 12px 15px;">{self.kriterium_in_7.text()}/{self.kriterium_von_7.text()}</td>
-        </tr>"""
-
-        html_krit8 = f"""<tr style="border-bottom: 1px solid #dddddd;">
-            <td style="padding: 12px 15px;">{self.kriterium_8.text()}</td>
-            <td style="padding: 12px 15px;">{self.kriterium_in_8.text()}/{self.kriterium_von_8.text()}</td>
-        </tr>"""
-
-        if not self.compiler_fehler_checkbox.isChecked():
-            html_file_end = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: #009879;">
-                                <td style="padding: 12px 15px;">Summe</td>
-                                <td style="padding: 12px 15px;">{self.summe_in.text()}/{self.summe_von.text()}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <br>
-                        <h4>Kommentar</h4>
-                        <pre style="white-space:pre-wrap;word-wrap:break-word;">{self.kommentar_in.toPlainText()}</pre>
-                        <br>
-                        <h4>Hinweise</h4>
-                        <pre style="white-space:pre-wrap;word-wrap:break-word;">{self.hinweise_in.toPlainText()}</pre>
-                        <br>
-                        <h4>Musterlösung</h4>
-                        <a href="{self.musterloesung_in.text()}">{self.musterloesung_in.text()}</a>
-                    </div>
-            """
-        else:
-            html_file_end = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: #009879;">
-                                <td style="padding: 12px 15px;">Summe</td>
-                                <td style="padding: 12px 15px;">{self.summe_in.text()}/{self.summe_von.text()}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <p style="font-weight: bold;color: #FF0000;">Compiler Fehler ===> 0 Punkte!</p>
-                        <br>
-                        <h4>Kommentar</h4>
-                        <pre style="white-space:pre-wrap;word-wrap:break-word;">{self.kommentar_in.toPlainText()}</pre>
-                        <br>
-                        <h4>Hinweise</h4>
-                        <pre style="white-space:pre-wrap;word-wrap:break-word;">{self.hinweise_in.toPlainText()}</pre>
-                        <br>
-                        <h4>Musterlösung</h4>
-                        <a href="{self.musterloesung_in.text()}">{self.musterloesung_in.text()}</a>
-                    </div>
-            """
-
-        html_file = html_file_begin
-
-        if not (self.kriterium.text() and self.kriterium_in.text() and self.kriterium_von.text()) == "":
-            html_file += html_krit1
-
-        if not (self.kriterium_2.text() and self.kriterium_in_2.text() and self.kriterium_von_2.text()) == "":
-            html_file += html_krit2
-
-        if not (self.kriterium_3.text() and self.kriterium_in_3.text() and self.kriterium_von_3.text()) == "":
-            html_file += html_krit3
-
-        if not (self.kriterium_4.text() and self.kriterium_in_4.text() and self.kriterium_von_4.text()) == "":
-            html_file += html_krit4
-
-        if not (self.kriterium_5.text() and self.kriterium_in_5.text() and self.kriterium_von_5.text()) == "":
-            html_file += html_krit5
-
-        if not (self.kriterium_6.text() and self.kriterium_in_6.text() and self.kriterium_von_6.text()) == "":
-            html_file += html_krit6
-
-        if not (self.kriterium_7.text() and self.kriterium_in_7.text() and self.kriterium_von_7.text()) == "":
-            html_file += html_krit7
-
-        if not (self.kriterium_8.text() and self.kriterium_in_8.text() and self.kriterium_von_8.text()) == "":
-            html_file += html_krit8
+        # Jedes Kriterium hinzufuegen
+        for x in range(0,8):
+            if not (self.krit[x].text() and self.krit_in[x].text() and self.krit_von[x].text()) == "":
+                print(self.krit[x])
+                html_file += html_krit_list[x]
 
         html_file += html_file_end
 
