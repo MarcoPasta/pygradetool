@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
-import html_template as tmplt
 from PyQt5 import QtWidgets, QtCore, QtGui
 
+import modules.html_template as tmplt
 import modules.auto_pdf as auto_pdf
 
 class Ui_PyGradeTool(QtWidgets.QWidget):

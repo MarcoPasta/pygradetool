@@ -1,5 +1,4 @@
 altgraph==0.17
-pkg_resources==0.0.0
 pyinstaller==4.5
 pyinstaller-hooks-contrib==2021.2
 PyPDF2==3.0.1
