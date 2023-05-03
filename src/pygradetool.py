@@ -265,7 +265,7 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
 
         self.bewertung_generieren.clicked.connect(self.berechne_summe)
         self.bewertung_generieren.clicked.connect(self.create_html)
-        self.file_dialog.clicked.connect(self.detect_from_json)
+        self.file_dialog.clicked.connect(self.detect_from_pdf)
 
 
     def open_file_dialog(self): 
@@ -273,7 +273,7 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
         path = filename[0]
         return path
 
-    def detect_from_json(self): 
+    def detect_from_pdf(self): 
         """
         Oeffnet file dialog um Kriterien aus PDF zu kopieren
         """
