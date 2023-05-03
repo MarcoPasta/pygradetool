@@ -2,6 +2,8 @@
 MarcoPastas Cross-Platform PyGradeTool für die Bewertung von Studenten. Geschrieben in Python mit dem PyQt5 Framework, executables erstellt mit PyInstaller.
 ___
 # Nutzung
+Achtung! Für die Nutzung des Tools wird die Python Version 3.8 oder 3.9 empfohlen! ARM Nutzer müssen das Terminal mit Rosetta 2 kompatibilität ausführen!
+
 Das Tool erstellt eine .html-Datei mit dem angegeben Namen + ".html". Dabei wird bei dem eingegebenen Namen das Leerzeichen gefiltert und durch ein '_' ersetzt. 
 
 Bei der Erstellung der HTML Datei wird eine Tabelle erzeugt, welche den Namen des zu bewertenden Studenten, Name des Tutors so wie eine Tabelle mit dynamisch kreierten Kriterien. Es können bis zu maximal 7 Kriterien angegeben werden. Zu den Kriterien können ebenfalls Punkte vergeben werden aus denen die Summe der Punktzahl berechnet wird. Falls es bei dem Code zu einem Compilerfehler kommt, kann man über eine Checkbox einen Compilerfehler angeben, dadurch bekommt der Student automatisch 0 Punkte, allerdings kann er seine "potenziellen Punkte" noch einsehen. Neben den Kriterien können auch Kommentare, Hinweise sowie eine Musterlösung angegeben werden.
