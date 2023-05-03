@@ -174,21 +174,45 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
         self.slash_9.setGeometry(QtCore.QRect(700, 390, 16, 17))
         self.slash_9.setObjectName("slash_9")
         # Buttons - Checkboxes ----------------------------
-        self.bewertung_generieren = QtWidgets.QPushButton(PyGradeTool)
-        self.bewertung_generieren.setGeometry(QtCore.QRect(630, 450, 160, 25))
-        self.bewertung_generieren.setObjectName("bewertung_generieren")
-        self.compiler_fehler_checkbox = QtWidgets.QCheckBox(PyGradeTool)
-        self.compiler_fehler_checkbox.setGeometry(QtCore.QRect(630, 415, 25, 25))
-        self.compiler_fehler_checkbox.setObjectName("compiler_fehler_checkbox")
-        self.compiler_fehler_label = QtWidgets.QLabel(PyGradeTool)
-        self.compiler_fehler_label.setGeometry(QtCore.QRect(650, 415, 150, 25))
-        self.compiler_fehler_label.setObjectName("compiler_fehler_label")
         self.file_dialog_label = QtWidgets.QLabel(PyGradeTool)
         self.file_dialog_label.setGeometry(QtCore.QRect(630, 70, 110, 30))
         self.file_dialog_label.setObjectName("file_dialog_label")
         self.file_dialog = QtWidgets.QPushButton(PyGradeTool)
         self.file_dialog.setGeometry(QtCore.QRect(630, 100, 61, 30))
         self.file_dialog.setObjectName("file_dialog_button")
+        self.compiler_fehler_label = QtWidgets.QLabel(PyGradeTool)
+        self.compiler_fehler_label.setGeometry(QtCore.QRect(650, 415, 150, 25))
+        self.compiler_fehler_label.setObjectName("compiler_fehler_label")
+        self.compiler_fehler_checkbox = QtWidgets.QCheckBox(PyGradeTool)
+        self.compiler_fehler_checkbox.setGeometry(QtCore.QRect(630, 415, 25, 25))
+        self.compiler_fehler_checkbox.setObjectName("compiler_fehler_checkbox")
+        self.bewertung_generieren = QtWidgets.QPushButton(PyGradeTool)
+        self.bewertung_generieren.setGeometry(QtCore.QRect(630, 450, 160, 25))
+        self.bewertung_generieren.setObjectName("bewertung_generieren")
+        self.colorpicker_green_checkbox = QtWidgets.QCheckBox(PyGradeTool)
+        self.colorpicker_green_checkbox.setGeometry(QtCore.QRect(630, 490, 25, 25))
+        self.colorpicker_green_checkbox.setObjectName("colopicker_green_checkbox")
+        self.colorpicker_green_label = QtWidgets.QLabel(PyGradeTool)
+        self.colorpicker_green_label.setGeometry(QtCore.QRect(670, 492, 20, 20))
+        self.colorpicker_green_label.setObjectName("color_green_picker")
+
+        self.colorpicker_blue_checkbox = QtWidgets.QCheckBox(PyGradeTool)
+        self.colorpicker_blue_checkbox.setGeometry(QtCore.QRect(630, 520, 25, 25))
+        self.colorpicker_blue_checkbox.setObjectName("colopicker_blue_checkbox")
+        self.colorpicker_blue_label = QtWidgets.QLabel(PyGradeTool)
+        self.colorpicker_blue_label.setGeometry(QtCore.QRect(670, 522, 20, 20))
+        self.colorpicker_blue_label.setObjectName("color_blue_picker")
+
+        self.colorpicker_pink_checkbox = QtWidgets.QCheckBox(PyGradeTool)
+        self.colorpicker_pink_checkbox.setGeometry(QtCore.QRect(630, 550, 25, 25))
+        self.colorpicker_pink_checkbox.setObjectName("colopicker_pink_checkbox")
+        self.colorpicker_pink_label = QtWidgets.QLabel(PyGradeTool)
+        self.colorpicker_pink_label.setGeometry(QtCore.QRect(670, 552, 20, 20))
+        self.colorpicker_pink_label.setObjectName("color_pink_picker")
+
+
+        
+
         # raise ----------------------------------------------
         self.zu_bewerten_in.raise_()
         self.zu_bewerten.raise_()
@@ -245,6 +269,8 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
         PyGradeTool.setWindowTitle(_translate("PyGradeTool", "PyGradeTool by MarcoPasta"))
         self.zu_bewerten.setText(_translate("PyGradeTool", "Zu bewertende Person"))
         self.bewertender.setText(_translate("PyGradeTool", "Bewertende Person"))
+        self.file_dialog_label.setText(_translate("PyGradeTool", "PDF auswählen"))
+        self.file_dialog.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_DialogOpenButton))
         self.slash_1.setText(_translate("PyGradeTool", "/"))
         self.slash_2.setText(_translate("PyGradeTool", "/"))
         self.slash_3.setText(_translate("PyGradeTool", "/"))
@@ -257,21 +283,54 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
         self.hinweise.setText(_translate("PyGradeTool", "Hinweise"))
         self.musterloesung.setText(_translate("PyGradeTool", "Musterlösung"))
         self.slash_8.setText(_translate("PyGradeTool", "/"))
-        self.bewertung_generieren.setText(_translate("PyGradeTool", "Bewertung generieren"))
         self.compiler_fehler_label.setText(_translate("PyGradeTool", "Compiler Fehler"))
-        self.file_dialog_label.setText(_translate("PyGradeTool", "PDF auswählen"))
-        self.file_dialog.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_DialogOpenButton))
-
-
+        self.bewertung_generieren.setText(_translate("PyGradeTool", "Bewertung generieren"))
+        self.colorpicker_green_label.setStyleSheet("""  border: 3px solid #009879;
+                                                        border-radius: 10px; 
+                                                        background-color: #009879""")
+        self.colorpicker_blue_label.setStyleSheet("""  border: 3px solid #04aed4;
+                                                        border-radius: 10px; 
+                                                        background-color: #04aed4""")
+        self.colorpicker_pink_label.setStyleSheet("""  border: 3px solid #fc14da;
+                                                        border-radius: 10px; 
+                                                        background-color: #fc14da""")
+        self.colorpicker_green_checkbox.setChecked(True)
+        self.colorpicker_green_checkbox.stateChanged.connect(self.checkbox_handler)
+        self.colorpicker_blue_checkbox.stateChanged.connect(self.checkbox_handler)
+        self.colorpicker_pink_checkbox.stateChanged.connect(self.checkbox_handler)
         self.bewertung_generieren.clicked.connect(self.berechne_summe)
         self.bewertung_generieren.clicked.connect(self.create_html)
         self.file_dialog.clicked.connect(self.detect_from_pdf)
+
+
+    def checkbox_handler(self):
+        if self.sender() == self.colorpicker_green_checkbox:
+            self.colorpicker_blue_checkbox.setChecked(False)
+            self.colorpicker_pink_checkbox.setChecked(False)
+
+        if self.sender() == self.colorpicker_blue_checkbox:
+            self.colorpicker_green_checkbox.setChecked(False)
+            self.colorpicker_pink_checkbox.setChecked(False)
+
+        if self.sender() == self.colorpicker_pink_checkbox:
+            self.colorpicker_blue_checkbox.setChecked(False)
+            self.colorpicker_green_checkbox.setChecked(False)
+
+
+    def get_color(self):
+        if self.colorpicker_green_checkbox.isChecked():
+            return "#009879"
+        if self.colorpicker_blue_checkbox.isChecked():
+            return "#04aed4"
+        if self.colorpicker_pink_checkbox.isChecked():
+            return "#fc14da"
 
 
     def open_file_dialog(self): 
         filename = QtWidgets.QFileDialog.getOpenFileName()
         path = filename[0]
         return path
+
 
     def detect_from_pdf(self): 
         """
@@ -332,7 +391,8 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
                                        self.summe_von.text(), self.kommentar_in.toPlainText(), 
                                        self.hinweise_in.toPlainText(), self.musterloesung_in.text())
 
-        html_file = tmplt.html_begin(self.bewertender_in.text(),
+        table_color = self.get_color()
+        html_file = tmplt.html_begin(table_color, self.bewertender_in.text(),
                                           self.zu_bewerten_in.text())
 
         # Jedes Kriterium hinzufuegen

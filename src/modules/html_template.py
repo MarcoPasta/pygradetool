@@ -1,8 +1,8 @@
-def html_begin(bewertender_in, zu_bewerten_in) -> str:
+def html_begin(table_color, bewertender_in, zu_bewerten_in) -> str:
     html_file_begin = f"""<div>
                     <table class="content-table" style="border-collapse: collapse;margin: 25px 0;font-size: 0.9em;border-radius: 5px 5px 0 0;overflow: hidden;box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);">
                         <thead>
-                            <tr style="background-color: #009879;color: #ffffff;text-align: left;font-weight: bold;">
+                            <tr style="background-color: {table_color};color: #ffffff;text-align: left;font-weight: bold;">
                                 <th style="padding: 12px 15px;"></th>
                                 <th style="padding: 12px 15px;"></th>
                             </tr>
@@ -18,7 +18,7 @@ def html_begin(bewertender_in, zu_bewerten_in) -> str:
                             </tr>
                         </tbody>
                         <thead>
-                        <tr style="background-color: #009879;color: #ffffff;text-align: left;font-weight: bold;">
+                        <tr style="background-color: {table_color};color: #ffffff;text-align: left;font-weight: bold;">
                             <th style="padding: 12px 15px;">Bewertungsschema</th>
                             <th style="padding: 12px 15px;">Punkte</th>
                         </tr>
