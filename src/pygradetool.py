@@ -387,11 +387,11 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
                 </tr>"""
                 html_krit_list.append(html_krit)
 
-        html_file_end = tmplt.html_end(self.compiler_fehler_checkbox.isChecked(), self.summe_in.text(),
+        table_color = self.get_color()
+        html_file_end = tmplt.html_end(self.compiler_fehler_checkbox.isChecked(), table_color, self.summe_in.text(),
                                        self.summe_von.text(), self.kommentar_in.toPlainText(), 
                                        self.hinweise_in.toPlainText(), self.musterloesung_in.text())
 
-        table_color = self.get_color()
         html_file = tmplt.html_begin(table_color, self.bewertender_in.text(),
                                           self.zu_bewerten_in.text())
 

@@ -26,9 +26,9 @@ def html_begin(table_color, bewertender_in, zu_bewerten_in) -> str:
                         <tbody>"""
     return html_file_begin
 
-def html_end(checkbox: bool, summe_in, summe_von, kommentar_in, hinweise_in, musterloesung_in) -> str:
+def html_end(checkbox: bool, table_color, summe_in, summe_von, kommentar_in, hinweise_in, musterloesung_in) -> str:
     if not checkbox:
-            html_file_end = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: #009879;">
+            html_file_end = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: {table_color};">
                                 <td style="padding: 12px 15px;">Summe</td>
                                 <td style="padding: 12px 15px;">{summe_in}/{summe_von}</td>
                             </tr>
@@ -46,7 +46,7 @@ def html_end(checkbox: bool, summe_in, summe_von, kommentar_in, hinweise_in, mus
                     </div>
             """
     else:
-        html_file_end = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: #009879;">
+        html_file_end = f"""<tr class="active-row" style="border-bottom: 1px solid #dddddd;font-weight: bold;color: {table_color};">
                             <td style="padding: 12px 15px;">Summe</td>
                             <td style="padding: 12px 15px;">{summe_in}/{summe_von}</td>
                         </tr>
