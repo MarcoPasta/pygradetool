@@ -1,7 +1,12 @@
 import os
 import pytest
-
 import modules.auto_pdf as auto_pdf
+#
+# WICHTIG!
+# Um Tests auszufuehren muss sich in ./test/unit ein "data" Ordner befinden! 
+# In data muessen sich die tests als .pdf Datei befinden, sonst kann kein Test ausgefuehrt
+# werden! :)
+#
 
 @pytest.fixture
 def pdf_files():
