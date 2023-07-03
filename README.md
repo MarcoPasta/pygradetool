@@ -28,7 +28,7 @@ mit folgenden schritten installiert ihr das Tool:
 
 Eine Executable kann wie folgt erstellt werden: 
 ```bash
-pyinstaller --onefile --windowed pygradetool.py
+pyinstaller --onefile --windowed --icon=icon/grade.ico pygradetool.py
 ```
 Bei dem Fehler `missing _bootlocale`: 
 ```bash

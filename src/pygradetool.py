@@ -189,21 +189,22 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
         self.bewertung_generieren = QtWidgets.QPushButton(PyGradeTool)
         self.bewertung_generieren.setGeometry(QtCore.QRect(630, 450, 160, 25))
         self.bewertung_generieren.setObjectName("bewertung_generieren")
-        self.colorpicker_green_checkbox = QtWidgets.QCheckBox(PyGradeTool)
+
+        self.colorpicker_green_checkbox = QtWidgets.QRadioButton(PyGradeTool)
         self.colorpicker_green_checkbox.setGeometry(QtCore.QRect(630, 490, 25, 25))
         self.colorpicker_green_checkbox.setObjectName("colopicker_green_checkbox")
         self.colorpicker_green_label = QtWidgets.QLabel(PyGradeTool)
         self.colorpicker_green_label.setGeometry(QtCore.QRect(670, 492, 20, 20))
         self.colorpicker_green_label.setObjectName("color_green_picker")
 
-        self.colorpicker_blue_checkbox = QtWidgets.QCheckBox(PyGradeTool)
+        self.colorpicker_blue_checkbox = QtWidgets.QRadioButton(PyGradeTool)
         self.colorpicker_blue_checkbox.setGeometry(QtCore.QRect(630, 520, 25, 25))
         self.colorpicker_blue_checkbox.setObjectName("colopicker_blue_checkbox")
         self.colorpicker_blue_label = QtWidgets.QLabel(PyGradeTool)
         self.colorpicker_blue_label.setGeometry(QtCore.QRect(670, 522, 20, 20))
         self.colorpicker_blue_label.setObjectName("color_blue_picker")
 
-        self.colorpicker_pink_checkbox = QtWidgets.QCheckBox(PyGradeTool)
+        self.colorpicker_pink_checkbox = QtWidgets.QRadioButton(PyGradeTool)
         self.colorpicker_pink_checkbox.setGeometry(QtCore.QRect(630, 550, 25, 25))
         self.colorpicker_pink_checkbox.setObjectName("colopicker_pink_checkbox")
         self.colorpicker_pink_label = QtWidgets.QLabel(PyGradeTool)
@@ -295,26 +296,9 @@ class Ui_PyGradeTool(QtWidgets.QWidget):
                                                         border-radius: 10px; 
                                                         background-color: #fc14da""")
         self.colorpicker_green_checkbox.setChecked(True)
-        self.colorpicker_green_checkbox.stateChanged.connect(self.checkbox_handler)
-        self.colorpicker_blue_checkbox.stateChanged.connect(self.checkbox_handler)
-        self.colorpicker_pink_checkbox.stateChanged.connect(self.checkbox_handler)
         self.bewertung_generieren.clicked.connect(self.berechne_summe)
         self.bewertung_generieren.clicked.connect(self.create_html)
         self.file_dialog.clicked.connect(self.detect_from_pdf)
-
-
-    def checkbox_handler(self):
-        if self.sender() == self.colorpicker_green_checkbox:
-            self.colorpicker_blue_checkbox.setChecked(False)
-            self.colorpicker_pink_checkbox.setChecked(False)
-
-        if self.sender() == self.colorpicker_blue_checkbox:
-            self.colorpicker_green_checkbox.setChecked(False)
-            self.colorpicker_pink_checkbox.setChecked(False)
-
-        if self.sender() == self.colorpicker_pink_checkbox:
-            self.colorpicker_blue_checkbox.setChecked(False)
-            self.colorpicker_green_checkbox.setChecked(False)
 
 
     def get_color(self):
